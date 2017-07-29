@@ -49,7 +49,7 @@ typedef pair<int,int> pii;
 
 vector<int> g[MX], gT[MX];
 int par[MX],vis[MX],total[MX],color[MX],dis[MX],d[MX],f[MX],TIME;
-bool bfs(int source)
+void bfs(int source)
 {
     vis[source]=1;//marked visited
     par[source]=-1;//parent is NIL
@@ -70,7 +70,7 @@ bool bfs(int source)
             }
         }
     }
-    return false;
+    return ;
 }
 void print(int node)
 {
