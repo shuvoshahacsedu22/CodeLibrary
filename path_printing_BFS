@@ -72,11 +72,22 @@ void bfs(int source)
     }
     return ;
 }
-void print(int node)
+void print_path_single_source(int node)
 {
    if(par[node]==-1) return;
    else print(par[node]);
    printf("%d ",par[node]);
+}
+void print_path_source_destination(int source,int destination)
+{
+	if(source==destination)
+		printf("%d",s);
+   else if(prev[v]==-1)
+		printf("No path exists");
+	else{
+		print_path_source_destination(source,prev[destination]);
+		printf("%d",destination);
+	}
 }
 int main()
 {
