@@ -1,0 +1,87 @@
+#include<set>
+#include<map>
+#include<cmath>
+#include<queue>
+#include<stack>
+#include<vector>
+#include<cctype>
+#include<cstdio>
+#include<string>
+#include<sstream>
+#include<cstring>
+#include<cstdlib>
+#include<fstream>
+#include<iterator>
+#include<iostream>
+#include<algorithm>
+#include<cassert>
+#include<ctime>
+
+using namespace std;
+
+#pragma comment(linker,"/STACK:16777216")
+#pragma warning(disable:4786)
+
+#define max(a,b) ((a)>(b)?(a):(b))
+#define min(a,b) ((a)<(b)?(a):(b))
+#define myabs(a) ((a)<0?(-(a)):(a))
+#define AIN(a, b, c) assert(b <= a && a <= c)
+#define pi acos(-1.0)
+#define CLR(a) memset(a,0,sizeof(a))
+#define SET(a) memset(a,-1,sizeof(a))
+#define pb push_back
+#define all(a) a.begin(),a.end()
+#define ff first
+#define ss second
+#define eps 1e-9
+#define root 1
+#define lft 2*idx
+#define rgt 2*idx+1
+#define cllft lft,st,mid,s,e
+#define clrgt rgt,mid+1,ed,s,e
+#define inf (1<<29)
+#define ii64 long long
+#define MX 1000002
+#define INF 1000002
+#define for(i,n) for(int i=0;i<n;i++)
+typedef pair<int,int> pii;
+#define WHITE -1
+#define GREY 1
+#define BLACK 2
+#define debug(m) printf("%d",m);
+
+vector<int> g[MX], gT[MX];
+bool visited[MX],stock[MX];
+bool isCyclic(int source)
+{
+      if(!visited[source]){
+      visited[source]=stock[source]=true;
+      for(i,g[source].size())
+      {
+        if ( !visited[g[source][i]] && isCyclic(g[source][i]))
+                return true;
+            else if (stock[g[source][i]])
+                return true;
+      }
+
+      }
+    stock[source] = false;  // remove the vertex from recursion stack
+    return false;
+}
+int main()
+{
+    //freopen("in.txt","r",stdin);
+    //freopen("out.txt","w",stdout);
+    int u,v,i,t,n,m;
+    cin>>n>>m;
+    while(m--)
+    {
+    scanf("%d%d",&u,&v);
+    g[u].push_back(v);
+    }
+    bool cycle=false;
+    for(i,n) if(visited[i]==0 && isCyclic(i)) cycle=true;
+    if(cycle)printf("Cyclic");
+    else printf("Not Cyclic");
+    return 0;
+}
