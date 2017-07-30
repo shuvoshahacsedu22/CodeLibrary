@@ -1,0 +1,89 @@
+#include<set>
+#include<map>
+#include<cmath>
+#include<queue>
+#include<stack>
+#include<vector>
+#include<cctype>
+#include<cstdio>
+#include<string>
+#include<sstream>
+#include<cstring>
+#include<cstdlib>
+#include<fstream>
+#include<iterator>
+#include<iostream>
+#include<algorithm>
+#include<cassert>
+#include<ctime>
+
+using namespace std;
+
+#pragma comment(linker,"/STACK:16777216")
+#pragma warning(disable:4786)
+
+#define max(a,b) ((a)>(b)?(a):(b))
+#define min(a,b) ((a)<(b)?(a):(b))
+#define myabs(a) ((a)<0?(-(a)):(a))
+#define AIN(a, b, c) assert(b <= a && a <= c)
+#define pi acos(-1.0)
+#define CLR(a) memset(a,0,sizeof(a))
+#define SET(a) memset(a,-1,sizeof(a))
+#define pb push_back
+#define all(a) a.begin(),a.end()
+#define ff first
+#define ss second
+#define eps 1e-9
+#define root 1
+#define lft 2*idx
+#define rgt 2*idx+1
+#define cllft lft,st,mid,s,e
+#define clrgt rgt,mid+1,ed,s,e
+#define inf (1<<29)
+#define ii64 long long
+#define MX 1000002
+#define INF 1000002
+#define for(i,n) for(int i=0;i<n;i++)
+#define debug(m) printf("%d",m);
+typedef pair<int,int> pii;
+vector<int> g[MX], gT[MX];
+int par[MX],visT[MX],vis[MX],total[MX],color[MX],dis[MX],d[MX],f[MX],TIME;
+stack<int> ls;
+void dfs(int source)
+{
+ if(vis[source]) return;
+ vis[source]=1;
+ for(i,g[source].size())
+ {
+  if(!vis[g[source][i]]) dfs(g[source][i]);
+ }
+ ls.push(source);
+}
+void dfsSCC(int source)
+{
+ if(visT[source])return;
+ visT[source]=1;
+ cout<<source<<" ";
+ for(i,gT[source].size())
+ {
+ if(!visT[gT[source][i]]) dfsSCC(gT[source][i]);
+ }
+}
+int main()
+{
+    //freopen("in.txt","r",stdin);
+    //freopen("out.txt","w",stdout);
+    int n,m,i,u,v;
+    cin>>n>>m;
+    while(m--)
+    {
+    scanf("%d%d",&u,&v);
+    g[u].pb(v);
+    gT[v].pb(u);
+    }
+    int cnt=0;
+    for(i,n) if(!vis[i]) dfs(i);
+    for(i,n) {int k=ls.top();ls.pop();if(!visT[k]) {cnt++;dfsSCC(k);puts("");}}
+    cout<<cnt<<endl;
+    return 0;
+}
